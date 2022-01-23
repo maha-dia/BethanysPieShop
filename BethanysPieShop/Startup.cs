@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace BethanysPieShop
 {
@@ -26,9 +27,11 @@ namespace BethanysPieShop
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //our service 
-            services.AddScoped<IPieRepository,MockPieRepository>();
-            services.AddScoped<ICategoryRepository, MockCategoryRepository>();
+            services.AddScoped<IPieRepository,PieRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 
